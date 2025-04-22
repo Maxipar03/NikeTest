@@ -11,7 +11,7 @@ export async function generateMetadata ({params}) {
 const Categories = async ({ params }) => {
     const { categories } = await params;
 
-    const response = await fetch(`${process.env.URL_BASE}/api/products/${categories}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL_BASE}/api/products/${categories}`, {
         cache: "no-store"
     });
     const items = await response.json();

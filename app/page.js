@@ -1,7 +1,7 @@
 import ProductCard from "./components/ProductCard";
 
 export default async function Home() {
-    const response = await fetch(`${process.env.URL_BASE}/api/products/`, { cache: "no-store" },);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL_BASE}/api/products/`, { cache: "no-store" },);
     const items = await response.json();
 
 

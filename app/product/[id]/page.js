@@ -5,7 +5,7 @@ const Categories = async ({ params }) => {
     
     const { id } = await params;
 
-    const response = await fetch(`${process.env.URL_BASE}/api/product/${id}`, {cache:"no-store"});
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL_BASE}/api/product/${id}`, {cache:"no-store"});
     const item = await response.json();
 
     return (
