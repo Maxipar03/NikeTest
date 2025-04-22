@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Nike Air Max 90",
+        "description": "Zapatillas clásicas con diseño icónico y amortiguación Air.",
+        "price": 149.99,
+        "image": "/productsImg/nike-air-max-90.jpg",
+        "category": "Zapatillas"
+    },
+    {
+        "name": "Nike Dri-FIT Camiseta",
+        "description": "Camiseta de entrenamiento con tecnología Dri-FIT para mantenerte seco.",
+        "price": 34.99,
+        "image": "/productsImg/nike-dri-fit-shirt.jpg",
+        "category": "Ropa"
+    },
+    {
+        "name": "Nike Pro Shorts",
+        "description": "Shorts ajustados ideales para entrenamiento de alta intensidad.",
+        "price": 29.99,
+        "image": "/productsImg/nike-pro-shorts.jpeg",
+        "category": "Ropa"
+    },
+    {
+        "name": "Nike Air Force 1",
+        "description": "Zapatillas clásicas de cuero con suela de goma resistente.",
+        "price": 119.99,
+        "image": "/productsImg/nike-air-force-1.jpg",
+        "category": "Zapatillas"
+    },
+    {
+        "name": "Nike Sportswear Club Hoodie",
+        "description": "Buzo con capucha de felpa suave para un look casual y cómodo.",
+        "price": 64.99,
+        "image": "/productsImg/nike-hoodie.webp",
+        "category": "Ropa"
+    },
+    {
+        "name": "Nike Heritage Mochila",
+        "description": "Mochila resistente y espaciosa con diseño moderno.",
+        "price": 44.99,
+        "image": "/productsImg/nike-heritage-backpack.jpg",
+        "category": "Accesorios"
+    }
+]
