@@ -18,7 +18,6 @@ const CartContextProvider = ({children}) => {
         }
 
         console.log("Se agregó el Producto #" + item.id + "!");   
-        console.log(cart)
     }
 
     const deleteProductFromCart = (id) => {

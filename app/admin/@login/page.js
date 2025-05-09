@@ -9,7 +9,7 @@ const LoginForm = () => {
     const [isLogin, setIsLogin] = useState(true);
 
     return (
-        <div className="flex flex-col items-center justify-center" style={{ height: "calc(100vh - 60px)" }}>
+        <div className="flex flex-col items-center justify-center" style={{ height: "calc(100vh - 165px)" }}>
             <div className="flex w-80 mb-6 border border-white rounded overflow-hidden">
                 <h2
                     onClick={() => setIsLogin(true)}

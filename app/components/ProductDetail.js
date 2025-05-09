@@ -5,7 +5,9 @@ import Image from "next/image";
 
 const ProductDetail = ({ item }) => {
 
-    const { addProductToCart } = useContext(CartContext)
+    const { addProductToCart } = useContext(CartContext);
+
+    const [selectedSize, setSelectedSize] = useState(null);
 
     const [quantity, setQuantity] = useState(1);
 
@@ -16,7 +18,7 @@ const ProductDetail = ({ item }) => {
     const handleDecrease = () => {
         setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
     };
-    
+
     const addProduct = () => {
         addProductToCart(item, quantity);
     }
@@ -38,6 +40,24 @@ const ProductDetail = ({ item }) => {
                     <h1 className="text-3xl font-bold text-white">{item.name}</h1>
                     <p className="text-white text-sm mt-2">{item.category}</p>
                     <p className="text-white mt-4">{item.description}</p>
+                    <div className=" flex flex-row w-full my-5 gap-2">
+                    {item.availableSizes.map((size, idx) => (
+                            <button
+                                key={idx}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    setSelectedSize(size);
+                                }}
+                                className={`text-xs px-2 py-1 border opacity-100 rounded-md ${selectedSize === size
+                                    ? "bg-black text-white border-black"
+                                    : "bg-gray-100 text-gray-700"
+                                    }`}
+                            >
+                                {size}
+                            </button>
+                    ))}
+                    </div>
                 </div>
 
                 <div className="mt-6 flex items-center justify-between border-t border-gray-600 pt-3">

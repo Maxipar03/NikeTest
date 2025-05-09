@@ -1,12 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const CrearProducto = () => {
+
     const [name, setName] = useState("");
     const [description, setDescripcion] = useState("");
     const [price, setPrice] = useState("");
     const [imagenFile, setImagenFile] = useState(null);
     const [category, setCategory] = useState("");
+    const [style, setStyle] = useState("");
+    const [availableSizes, setAvailableSizes] = useState([]);
 
     const handleSubmit = async (e) => {
 
@@ -18,13 +21,13 @@ const CrearProducto = () => {
         data.append("price", price);
         data.append("category", category);
         data.append("image", imagenFile);
+        data.append("availableSizes", JSON.stringify(availableSizes));
+        data.append("style", style);
 
         const res = await fetch("/api/product", {
             method: "POST",
             body: data,
         });
-
-        console.log(data)
 
         if (!res.ok) {
             throw new Error("Error al crear el producto");
@@ -34,8 +37,25 @@ const CrearProducto = () => {
         console.log(responseData);
     };
 
+    const sneakerSizes = ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46'];
+    const clothingSizes = ['XS', 'S', 'M', 'L', 'XL'];
+
+    const handleCheckboxChange = (size) => {
+        if (availableSizes.includes(size)) {
+            setAvailableSizes(availableSizes.filter((s) => s !== size));
+        } else {
+            setAvailableSizes([...availableSizes, size]);
+        }
+    };
+
+    const getSizesForCategory = () => {
+        if (category === 'Sneakers') return sneakerSizes;
+        if (['T-Shirts', 'Hoodies', 'Jackets', 'Joggers', 'Shorts'].includes(category)) return clothingSizes;
+        return [];
+    };
+
     return (
-        <div className="flex items-center justify-center p-4" style={{ height: "calc(100vh - 60px)" }}>
+        <div className="flex items-center justify-center p-4" style={{ height: "calc(100vh - 90px)" }}>
             <form
                 onSubmit={handleSubmit}
                 className="bg-white w-full max-w-lg rounded-lg shadow-lg p-8 space-y-6"
@@ -87,16 +107,52 @@ const CrearProducto = () => {
                 </div>
 
                 <div>
-                    <label className="block mb-1 font-medium text-gray-700">Categoría</label>
-                    <input
-                        type="text"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        required
-                        placeholder="Ej: Tecnología, Ropa, Juguetes..."
-                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                    <label className="block mb-1 font-medium text-gray-700">Seleccione el estilo</label>
+                    <select onChange={(e) => {
+                        setStyle(e.target.value);
+                    }} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Selecciona el estilo</option>
+                        <option value="Womens">Womens</option>
+                        <option value="Kids">Kids</option>
+                        <option value="Men">Men</option>
+                        <option value="Unisex">Unisex</option>
+                    </select>
                 </div>
+                
+                <div>
+                    <label className="block mb-1 font-medium text-gray-700">Seleccione su categoria</label>
+                    <select onChange={(e) => {
+                        setCategory(e.target.value);
+                        setAvailableSizes([]); 
+                    }} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Selecciona una categoría</option>
+                        <option value="Sneakers">Sneakers</option>
+                        <option value="T-Shirts">T-Shirts</option>
+                        <option value="Hoodies">Hoodies</option>
+                        <option value="Jackets">Jackets</option>
+                        <option value="Joggers">Joggers</option>
+                        <option value="Shorts">Shorts</option>
+                    </select>
+                </div>
+
+                {category && (
+                    <div>
+                        <label className="block mb-1 font-medium text-gray-700">Talles disponibles</label>
+                        <div className="flex flex-wrap gap-2">
+                            {getSizesForCategory().map((size) => (
+                                <label key={size} className="flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        value={size}
+                                        checked={availableSizes.includes(size)}
+                                        onChange={() => handleCheckboxChange(size)}
+                                    />
+                                    <span>{size}</span>
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+                )}
 
                 <button
                     type="submit"

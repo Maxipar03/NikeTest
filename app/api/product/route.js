@@ -10,8 +10,9 @@ export async function POST(request) {
         const price = formData.get("price");
         const category = formData.get("category");
         const file = formData.get("image");
+        const availableSizesJSON = formData.get("availableSizes");
+        const style = formData.get("style");
 
-        // Upload image
         const cloudinaryData = new FormData();
         cloudinaryData.append("file", file);
         cloudinaryData.append("upload_preset", process.env.CLOUDINARY_PRESET);
@@ -24,10 +25,10 @@ export async function POST(request) {
         const cloudinaryResponse = await cloudRes.json();
         const imageUrl = cloudinaryResponse.secure_url;
 
-        // Save in firestore
-        const values = { name, description, price, category, image: imageUrl };
+        const availableSizes = JSON.parse(availableSizesJSON);
+
+        const values = { name, description, price, category, image: imageUrl , availableSizes , style };
         const productsRef = collection(db, "products");
-        console.log(values)
         const docRef = await addDoc(productsRef, values);
 
         return new Response(JSON.stringify({ success: true, id: docRef.id }), {
